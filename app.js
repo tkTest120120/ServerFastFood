@@ -4,7 +4,9 @@ const express = require('express'),
     mysql = require('mysql'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
-    myConnection = require('express-myconnection');
+    myConnection = require('express-myconnection'),
+    {engine }  = require('express-handlebars');
+
 
 const app = express();
 // import routes
@@ -16,8 +18,11 @@ const appRoutes = require('./routes/app');
 
 // cài đặt path
 // app.set('port', 3001);
+// app.set('view engine', 'ejs');
+
+app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: "main"}));
+app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 // để post data json
 app.use(bodyParser.json() );
