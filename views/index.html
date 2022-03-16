@@ -71,7 +71,17 @@
             <h1> Đăng Nhập </h1>
             <p>Vui lòng điền vào biểu mẫu này để đăng nhập.</p>
             <div>
+                {{#if error}}
+                    {{#each error }}
+                        <span style="color: red;" > {{this}} </span>
+                    {{/each}}
+                {{/if}}
 
+                {{#if notification}}
+                {{#each notification }}
+                    <span style="color: blue;" > {{this}} </span>
+                {{/each}}
+            {{/if}}
             </div>
             <hr>
 
@@ -89,9 +99,9 @@
             <button type="submit" class="registerbtn"> Đăng Nhập </button>
         </div>
 
-        <div class="container signin">
+        <!-- <div class="container signin">
             <p> Bạn chưa có tài khoản ? <a href="/signup" style="text-decoration: none;" > Tạo tài khoản </a></p>
-        </div>
+        </div> -->
     </form>
 
 </body>

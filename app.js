@@ -20,8 +20,8 @@ const appRoutes = require('./routes/app');
 // app.set('port', 3001);
 // app.set('view engine', 'ejs');
 
-app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: "main"}));
-app.set('view engine', '.hbs');
+app.engine('.html', engine({ extname: '.html', defaultLayout: "main"}));
+app.set('view engine', '.html');
 app.set('views', path.join(__dirname, 'views'));
 
 // để post data json
