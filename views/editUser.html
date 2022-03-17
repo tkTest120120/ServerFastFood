@@ -8,9 +8,11 @@
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f2f2f2;
         }
+
         * {
             box-sizing: border-box;
         }
+
         /* Add padding to containers */
         .container {
             padding: 16px;
@@ -18,6 +20,7 @@
             width: 40%;
             margin: 0 auto;
         }
+
         /* Full-width input fields */
         input[type=text],
         input[type=password] {
@@ -28,16 +31,19 @@
             border: none;
             background: #f1f1f1;
         }
+
         input[type=text]:focus,
         input[type=password]:focus {
             background-color: #ddd;
             outline: none;
         }
+
         /* Overwrite default styles of hr */
         hr {
             border: 1px solid #f1f1f1;
             margin-bottom: 25px;
         }
+
         /* Set a style for the submit button */
         .registerbtn {
             background-color: #04AA6D;
@@ -49,13 +55,16 @@
             width: 100%;
             opacity: 0.9;
         }
+
         .registerbtn:hover {
             opacity: 1;
         }
+
         /* Add a blue text color to links */
         a {
             color: dodgerblue;
         }
+
         /* Set a grey background color and center the text of the "sign in" section */
         .signin {
             background-color: #f1f1f1;
@@ -66,10 +75,9 @@
 
 <body>
 
-    <form action="/login" method="POST" >
+    <form action="/updateUser/{{data.id}}" method="POST">
         <div class="container">
-            <h1> Đăng Nhập </h1>
-            <p>Vui lòng điền vào biểu mẫu này để đăng nhập.</p>
+            <h1> Chỉnh sửa User </h1>
             <div>
                 {{#if error}}
                     {{#each error }}
@@ -85,22 +93,28 @@
             </div>
             <hr>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Nhập Email" name="tk" id="email" required>
+            <label for="email"><b> UserName </b></label>
+            <input type="text" placeholder="Nhập UserName" name="tk" id="email" value="{{data.tk}}" required>
 
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Nhập Password" name="mk" id="psw" required>
+            <label for="psw"><b> Password </b></label>
+            <input type="password" placeholder="Nhập Password" name="mk" id="psw" value="{{data.mk}}"  required>
 
-            <!-- <label for="psw-repeat"><b>Nhập lại Password</b></label> -->
-            <!-- <input type="password" placeholder="Nhập lại Password" name="psw-repeat" id="psw-repeat" required> -->
+            <label for="psw-repeat"><b> Nhập lại Password </b></label>
+            <input type="password" placeholder="Nhập lại Password" name="mk_repeat" id="psw-repeat" 
+            value="{{data.mk}}" required>
+
+            <label for="permission"><b> Quyền truy cập </b></label>
+            <input type="text" placeholder="admin hoặc food" name="permission" id="permission"  
+            value="{{data.permission}}" required>
+
             <hr>
             <!-- <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p> -->
 
-            <button type="submit" class="registerbtn"> Đăng Nhập </button>
+            <button type="submit" class="registerbtn"> Cập Nhật </button>
         </div>
 
         <!-- <div class="container signin">
-            <p> Bạn chưa có tài khoản ? <a href="/signup" style="text-decoration: none;" > Tạo tài khoản </a></p>
+            <p> Bạn đã có tài khoản ? <a href="/login" style="text-decoration: none;" > Đăng Nhập </a></p>
         </div> -->
     </form>
 

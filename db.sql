@@ -4,3 +4,5 @@ CREATE TABLE usersFood (
     mk TEXT NOT NULL,
     permission TEXT NOT NULL
 );
+
+INSERT INTO `usersFood`(`id`, `tk`, `mk`, `permission`) VALUES (null,'a','a','food')
