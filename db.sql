@@ -1,0 +1,6 @@
+CREATE TABLE usersFood (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    tk VARCHAR(1000) NOT NULL UNIQUE,
+    mk TEXT NOT NULL,
+    permission TEXT NOT NULL
+);

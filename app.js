@@ -9,11 +9,12 @@ const express = require('express'),
 
 
 const app = express();
+
 // import routes
 const appRoutes = require('./routes/app');
+const loginRoutes = require('./routes/login');
 // // routes for react native
 // const mobileRoutes = require('./routes/mobile');
-
 // const apiRoutes = require('./routes/api');
 
 // cài đặt path
@@ -44,13 +45,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use('/', appRoutes);
-
+app.use('/', loginRoutes);
 // app.use('/', mobileRoutes);
-
 // app.use('/', apiRoutes);
 
 // static file
 app.use(express.static(path.join(__dirname, 'public')));
+
 // khởi động server
 // const ipAdress = '192.168.43.190';
 const ipAdress = '192.168.1.13';
