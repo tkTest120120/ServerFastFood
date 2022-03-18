@@ -137,7 +137,7 @@
         }
         .trai {
             margin-top: 50px;
-            width: 75%;
+            width: 100%;
             float: left;
         }
         .phai {
@@ -257,6 +257,17 @@
         /* a {
     color: dodgerblue;
 } */
+        .add_user{
+            text-decoration: none;
+            font-family: monospace;
+            padding: 10px 30px;
+            color: white;
+            background-color: green;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: inline-block;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
@@ -294,14 +305,22 @@
             <img src="../image/1.jpg" alt="Lỗi ảnh" class="img_bn" >
         </header> -->
 
+        
         <div class="trai">
+            <a href="" class="add_user" > Thêm User </a>
             <table style="width:100%">
                 <thead>
                     <tr>
-                        <td> Id </td>
-                        <td> UserName </td>
+                        <td> Phone </td>
                         <td> Password </td>
-                        <td> Permission </td>
+                        <td> Role </td>
+                        <td> Email </td>
+                        <td> Full Name </td>
+                        <td> Address </td>
+                        <td> Avatar </td>
+                        <td> Birth Of Date </td>
+                        <td> Sex </td>
+                        <td> createTime </td>
                         <td> Actions </td>
                     </tr>
                 </thead>
@@ -310,20 +329,40 @@
                         {{#each data }}
                             <tr>
                                 <td>
-                                    {{this.id}}
+                                    {{this.phone}}
                                 </td>
                                 <td>
-                                    {{this.tk}}
+                                    {{this.password}}
                                 </td>
                                 <td>
-                                    {{this.mk}}
+                                    {{this.role}}
                                 </td>
                                 <td>
-                                    {{this.permission}}
+                                    {{this.email}}
                                 </td>
                                 <td>
-                                    <a href="/editUser/{{this.id}}" class="btn_update"> Edit </a>
-                                    <a href="/deleteUser/{{this.id}}" class="btn_remove"> Delete </a>
+                                    {{this.full_name}}
+                                </td>
+
+                                <td>
+                                    {{this.address}}
+                                </td>
+                                <td>
+                                    {{this.avatar}}
+                                </td>
+                                <td>
+                                    {{this.birthOfDate}}
+                                </td>
+                                <td>
+                                    {{this.sex}}
+                                </td>
+                                <td>
+                                    {{this.createTime}}
+                                </td>
+
+                                <td>
+                                    <a href="/editUser/{{this.phone}}" class="btn_update"> Edit </a>
+                                    <a href="/deleteUser/{{this.phone}}" class="btn_remove"> Delete </a>
                                 </td>
                             </tr>
                         {{/each}}
@@ -346,7 +385,7 @@
             </div>
         </div>
 
-        <div class="phai">
+        <!-- <div class="phai">
             <form action="/user" method="POST" >
                 <div class="container_form">
                     <h1> Thêm Users </h1>
@@ -382,10 +421,10 @@
 
 
             </form>
-        </div>
+        </div> -->
 
         <footer class="footer">
-            <p> Đây là Assignment môn lập trình server cho Android </p>
+            <p> Đây là Dự Án Tốt Nghiệp </p>
         </footer>
 
     </div>

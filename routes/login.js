@@ -12,7 +12,7 @@ router.post("/login", (req, res) => {
         req.getConnection((err, connection) => {
             if (err) throw err;
 
-            connection.query("select * from usersFood", (err, users) => {
+            connection.query("select * from Users", (err, users) => {
                 if (err) {
                     console.log(err);
                     res.render('index', { layout: false, error: ['Lỗi đăng nhập'] });
@@ -21,22 +21,30 @@ router.post("/login", (req, res) => {
                 let login = false;
                 let admin = false;
 
-                users.map((user, index) => {
-                    if (tk === user.tk && mk === user.mk && user.permission === "admin") {
+                const a = users.filter((user, index) => {
+                    if (tk === user.phone && mk === user.password && user.role === "admin") {
                         login = true;
                         admin = true;
                         return user;
-                    } else if (user.permission == "food") {
-                        admin = false;
-                    } else {
-                        return;
                     }
+                    else if (tk === user.phone && mk === user.password) {
+                        admin = false;
+                        return user;
+                    } 
+                    // else {
+                    //     return;
+                    // }
 
                 });
 
+                console.log(a , "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
                 if (login) {
                     res.redirect("/users");
-                } else {
+                } else if (a.length === 1){
+                        res.render('index', {layout : false , error : ["Tài khoản không có quyền admin"] });
+                }
+                else {
 
                     // if(! admin){
                     //     res.render('index', {layout : false , error : ['Bạn nhập sai tài khoản hoặc mật khẩu',"Tài khoản không có quyền admin"] });
@@ -54,7 +62,7 @@ router.get("/users", (req, res) => {
     req.getConnection((err, connection) => {
         if (err) throw err;
 
-        connection.query("select * from usersFood", (err, users) => {
+        connection.query("select * from Users", (err, users) => {
             if (err) {
                 console.log(err);
                 res.render('ListUsers', { layout: false, error: ['Lỗi kết nối Database'] });
@@ -67,12 +75,12 @@ router.get("/users", (req, res) => {
     });
 });
 
-router.get("/deleteUser/:id", (req, res) => {
-    const { id } = req.params;
+router.get("/deleteUser/:phone", (req, res) => {
+    const { phone } = req.params;
     req.getConnection((err, connection) => {
         if (err) throw err;
 
-        connection.query('delete from usersFood where id = ?', [id], (err, rows) => {
+        connection.query('delete from Users where phone = ?', [phone], (err, rows) => {
             if (err) throw err;
 
             res.redirect('/users');
@@ -117,13 +125,13 @@ router.get("/editUser/:id", (req, res) => {
             if (err) throw err;
 
             console.log(user[0]);
-            res.render('editUser', {layout : false , data: user[0] });
+            res.render('editUser', { layout: false, data: user[0] });
         });
     });
 });
 
-router.post("/updateUser/:id", (req , res)=>{
-    const {id} = req.params;
+router.post("/updateUser/:id", (req, res) => {
+    const { id } = req.params;
     const data = req.body;
 
     const newUser = {
@@ -133,7 +141,7 @@ router.post("/updateUser/:id", (req , res)=>{
     };
 
     const data2 = {
-        id : id,
+        id: id,
         tk: data.tk,
         mk: data.mk,
         permission: data.permission
@@ -142,19 +150,19 @@ router.post("/updateUser/:id", (req , res)=>{
     console.log(newUser);
 
     if (data.mk !== data.mk_repeat) {
-        res.render('editUser', { layout: false, data : data2, error : ["2 mật khẩu không khớp nhau"] });
+        res.render('editUser', { layout: false, data: data2, error: ["2 mật khẩu không khớp nhau"] });
     } else if (data.permission === 'admin' || data.permission === 'food') {
-        req.getConnection((err , connection)=>{
-            if(err) throw err;
+        req.getConnection((err, connection) => {
+            if (err) throw err;
 
-            connection.query('update usersFood set ? where id = ?' , [newUser , id] , (err , rows)=>{
-                if(err) throw err;
+            connection.query('update usersFood set ? where id = ?', [newUser, id], (err, rows) => {
+                if (err) throw err;
 
                 res.redirect('/users');
             });
         });
     } else if (data.permission !== "admin" || data.permission !== "food") {
-        res.render('editUser', { layout: false,data : data2, error: ["Bạn nhập sai quyền truy cập"] });
+        res.render('editUser', { layout: false, data: data2, error: ["Bạn nhập sai quyền truy cập"] });
     }
 });
 
