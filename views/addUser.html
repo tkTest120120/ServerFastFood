@@ -23,7 +23,8 @@
 
         /* Full-width input fields */
         input[type=text],
-        input[type=password] {
+        input[type=password],
+        input[type=date] {
             width: 100%;
             padding: 15px;
             margin: 5px 0 22px 0;
@@ -33,7 +34,8 @@
         }
 
         input[type=text]:focus,
-        input[type=password]:focus {
+        input[type=password]:focus ,
+        input[type=date]:focus{
             background-color: #ddd;
             outline: none;
         }
@@ -75,66 +77,58 @@
 
 <body>
 
-    <form action="/updateUser/{{data.phone}}" method="POST">
+    <form action="/addUser" method="post">
         <div class="container">
-            <h1> Chỉnh sửa User </h1>
+            <h1> Thêm User </h1>
             <div>
                 {{#if error}}
-                    {{#each error }}
-                        <span style="color: red;" > {{this}} </span> <br>
-                    {{/each}}
+                {{#each error }}
+                <span style="color: red;"> {{this}} </span> <br>
+                {{/each}}
                 {{/if}}
 
                 {{#if notification}}
                 {{#each notification }}
-                    <span style="color: blue;" > {{this}} </span>
+                <span style="color: blue;"> {{this}} </span>
                 {{/each}}
-            {{/if}}
+                {{/if}}
             </div>
             <hr>
 
-            <label for="email"><b> UserName </b></label>
-            <input type="text" placeholder="Nhập UserName" name="phone" id="email" value="{{data.phone}}" required disabled>
+            <label for="email"><b> Số điện thoại </b></label>
+            <input type="text" placeholder="Nhập Số điện thoại" name="phone" id="email" required>
 
             <label for="psw"><b> Password </b></label>
-            <input type="password" placeholder="Nhập Password" name="password" id="psw" value="{{data.password}}"  required>
+            <input type="password" placeholder="Nhập Password" name="password" id="psw" required>
 
             <label for="psw-repeat"><b> Nhập lại Password </b></label>
-            <input type="password" placeholder="Nhập lại Password" name="mk_repeat" id="psw-repeat" 
-            value="{{data.password}}" required>
+            <input type="password" placeholder="Nhập lại Password" name="mk_repeat" id="psw-repeat" required>
 
             <label for="permission"><b> Quyền truy cập </b></label>
-            <input type="text" placeholder="admin hoặc food" name="role" id="permission"  
-            value="{{data.role}}" required>
+            <input type="text" placeholder="admin hoặc food" name="role" id="permission" required>
 
             <label for="email"><b> Email </b></label>
-            <input type="text" placeholder="Email" name="email" id="email"  
-            value="{{data.email}}" >
+            <input type="text" placeholder="Email" name="email" id="email">
 
             <label for="full_name"><b> Full Name </b></label>
-            <input type="text" placeholder="Full Name" name="full_name" id="full_name"  
-            value="{{data.full_name}}" >
+            <input type="text" placeholder="Full Name" name="full_name" id="full_name">
 
             <label for="address"><b> Address </b></label>
-            <input type="text" placeholder="Address" name="address" id="address"  
-            value="{{data.address}}" >
+            <input type="text" placeholder="Address" name="address" id="address">
 
             <label for="avatar"><b> Avatar </b></label>
-            <input type="text" placeholder="Avatar" name="avatar" id="avatar"  
-            value="{{data.avatar}}" >
+            <input type="text" placeholder="Avatar" name="avatar" id="avatar">
 
             <label for="birthOfDate"><b> Ngày Sinh </b></label>
-            <input type="text" placeholder="Ngày Sinh" name="birthOfDate" id="birthOfDate"  
-            value="{{data.birthOfDate}}" >
+            <input type="date" placeholder="Ngày Sinh" name="birthOfDate" id="birthOfDate">
 
             <label for="sex"><b> Giới tính </b></label>
-            <input type="text" placeholder="Giới tính" name="sex" id="sex"  
-            value="{{data.sex}}" >
+            <input type="text" placeholder="Giới tính" name="sex" id="sex">
 
             <hr>
             <!-- <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p> -->
 
-            <button type="submit" class="registerbtn"> Cập Nhật </button>
+            <button type="submit" class="registerbtn"> Thêm </button>
         </div>
 
         <!-- <div class="container signin">

@@ -88,40 +88,52 @@ router.get("/deleteUser/:phone", (req, res) => {
     });
 });
 
-router.post("/user", (req, res) => {
+router.get("/addUser" , (req , res)=>{
+    res.render("addUser" , {layout : false});
+});
+
+router.post("/addUser", (req, res) => {
     const data = req.body;
     console.log(data);
+
     const user = {
-        tk: data.tk,
-        mk: data.mk,
-        permission: data.permission
+        phone : data.phone,
+        password: data.password,
+        role: data.role,
+        email: data.email,
+        full_name : data.full_name,
+        address : data.address,
+        avatar : data.avatar,
+        birthOfDate : null, /////////////////////////////
+        sex : data.sex,
     };
 
-    if (data.mk !== data.mk_repeat) {
-        res.render('ListUsers', { layout: false, error2: ["2 mật khẩu không khớp nhau"] });
-    } else if (data.permission === 'admin' || data.permission === 'food') {
+    if (data.password !== data.mk_repeat) {
+        res.render('addUser', { layout: false, error: ["2 mật khẩu không khớp nhau"] });
+    } else if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
             if (err) res.json(err);
 
-            const query = connection.query("INSERT INTO `usersFood` set ? ", user, (err2, products) => {
+            const query = connection.query("INSERT INTO `Users` set ? ", user, (err2, products) => {
                 if (err2) res.json(err2);
 
                 // console.log(products);
                 res.redirect('/users');
             });
         });
-    } else if (data.permission !== "admin" || data.permission !== "food") {
-        res.render('ListUsers', { layout: false, error2: ["Bạn nhập sai quyền truy cập"] });
+    } else if (data.role !== "admin" || data.role !== "food") {
+        res.render('addUser', { layout: false, error: ["Bạn nhập sai quyền truy cập"] });
     }
 });
 
-router.get("/editUser/:id", (req, res) => {
-    const { id } = req.params;
-    console.log("============================   " + id);
+router.get("/editUser/:phone", (req, res) => {
+    const { phone } = req.params;
+    console.log("======================================================   " + phone);
+
     req.getConnection((err, connection) => {
         if (err) throw err;
 
-        connection.query('select * from usersFood WHERE id = ?', [id], (err, user) => {
+        connection.query('select * from Users WHERE phone = ?', [phone], (err, user) => {
             if (err) throw err;
 
             console.log(user[0]);
@@ -130,32 +142,42 @@ router.get("/editUser/:id", (req, res) => {
     });
 });
 
-router.post("/updateUser/:id", (req, res) => {
-    const { id } = req.params;
+router.post("/updateUser/:phone", (req, res) => {
+    const { phone } = req.params;
     const data = req.body;
 
     const newUser = {
-        tk: data.tk,
-        mk: data.mk,
-        permission: data.permission
+        password: data.password,
+        role: data.role,
+        email: data.email,
+        full_name : data.full_name,
+        address : data.address,
+        avatar : data.avatar,
+        birthOfDate : null,
+        sex : data.sex,
     };
 
     const data2 = {
-        id: id,
-        tk: data.tk,
-        mk: data.mk,
-        permission: data.permission
+        phone : phone,
+        password: data.password,
+        role: data.role,
+        email: data.email,
+        full_name : data.full_name,
+        address : data.address,
+        avatar : data.avatar,
+        birthOfDate : data.birthOfDate,
+        sex : data.sex,
     };
 
-    console.log(newUser);
+    // console.log(data);
 
-    if (data.mk !== data.mk_repeat) {
+    if (data.password !== data.mk_repeat) {
         res.render('editUser', { layout: false, data: data2, error: ["2 mật khẩu không khớp nhau"] });
-    } else if (data.permission === 'admin' || data.permission === 'food') {
+    } else if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
             if (err) throw err;
 
-            connection.query('update usersFood set ? where id = ?', [newUser, id], (err, rows) => {
+            connection.query('update Users set ? where phone = ?', [newUser, phone], (err, rows) => {
                 if (err) throw err;
 
                 res.redirect('/users');
