@@ -29,6 +29,7 @@ router.post("/mobile/addUser", (req, res) => {
                     });
 
                     res.status(200).send({signUp : false, error : "Lỗi đăng ký"});
+                    return;
                 } else {
 
                     // console.log(products);
