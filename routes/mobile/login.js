@@ -28,12 +28,11 @@ router.post("/mobile/addUser", (req, res) => {
                         error : "Phone này đã tồn tại",
                     });
 
-                    res.send({signUp : false, error : "Lỗi đăng ký"});
+                    res.status(200).send({signUp : false, error : "Lỗi đăng ký"});
                 } else {
 
                     // console.log(products);
-                    res.writeHead(200);
-                    res.send({...user , user : userNew , signUp : true});
+                    res.status(200).send({...user , user : userNew , signUp : true});
                 }
 
             });
