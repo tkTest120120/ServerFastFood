@@ -23,7 +23,10 @@ router.post("/mobile/addUser", (req, res) => {
             const query = connection.query("INSERT INTO `Users` set ? ", userNew, (err2, user) => {
                 if (err2.errno === 1062){
                     console.log(err2.errno);
-                    res.send('');
+                    res.send({
+                        signUp : false,
+                        error : "Phone này đã tồn tại",
+                    });
                 } else {
 
                     // console.log(products);
