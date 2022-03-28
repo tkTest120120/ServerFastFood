@@ -21,7 +21,7 @@ router.post("/mobile/addUser", (req, res) => {
             if (err) res.json(err);
 
             const query = connection.query("INSERT INTO `Users` set ? ", userNew, (err2, user) => {
-                if (err2.errno === 1062){
+                if (err2){
                     console.log(err2.errno);
                     res.send({
                         signUp : false,
