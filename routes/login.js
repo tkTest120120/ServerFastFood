@@ -114,7 +114,7 @@ router.post("/addUser", (req, res) => {
         req.getConnection((err, connection) => {
             if (err) res.json(err);
 
-            const query = connection.query("INSERT INTO `Users` set ? ", user, (err2, products) => {
+            const query = connection.query("INSERT INTO `Users` set ? , createTime = CURRENT_TIMESTAMP", user, (err2, products) => {
                 if (err2) res.json(err2);
 
                 // console.log(products);

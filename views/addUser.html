@@ -24,7 +24,8 @@
         /* Full-width input fields */
         input[type=text],
         input[type=password],
-        input[type=date] {
+        input[type=date],
+        select {
             width: 100%;
             padding: 15px;
             margin: 5px 0 22px 0;
@@ -34,8 +35,9 @@
         }
 
         input[type=text]:focus,
-        input[type=password]:focus ,
-        input[type=date]:focus{
+        input[type=password]:focus,
+        input[type=date]:focus,
+        select:focus {
             background-color: #ddd;
             outline: none;
         }
@@ -105,7 +107,11 @@
             <input type="password" placeholder="Nhập lại Password" name="mk_repeat" id="psw-repeat" required>
 
             <label for="permission"><b> Quyền truy cập </b></label>
-            <input type="text" placeholder="admin hoặc food" name="role" id="permission" required>
+            <!-- <input type="text" placeholder="admin hoặc food" name="role" id="permission" required> -->
+            <select name="role" id="permission">
+                <option value="food">food</option>
+                <option value="admin">admin</option>
+            </select>
 
             <label for="email"><b> Email </b></label>
             <input type="text" placeholder="Email" name="email" id="email">
@@ -123,7 +129,11 @@
             <input type="date" placeholder="Ngày Sinh" name="birthOfDate" id="birthOfDate">
 
             <label for="sex"><b> Giới tính </b></label>
-            <input type="text" placeholder="Giới tính" name="sex" id="sex">
+            <!-- <input type="text" placeholder="Giới tính" name="sex" id="sex"> -->
+            <select name="sex" id="sex">
+                <option value="Nữ">Nữ</option>
+                <option value="Nam">Nam</option>
+            </select>
 
             <hr>
             <!-- <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p> -->
