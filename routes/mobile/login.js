@@ -32,6 +32,7 @@ router.post("/mobile/addUser", (req, res) => {
                 } else {
 
                     // console.log(products);
+                    res.writeHead(200);
                     res.send({...user , user : userNew , signUp : true});
                 }
 
