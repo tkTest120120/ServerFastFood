@@ -8,32 +8,26 @@ router.post("/mobile/addUser", (req, res) => {
         phone: data.phone,
         password : data.password,
         role: data.role,
-        email: data.email,
-        full_name: data.full_name,
-        address: data.address,
-        avatar: data.avatar,
+        email: null,
+        full_name: null,
+        address: null,
+        avatar: null,
         birthOfDate: null, /////////////////////////////
-        sex: data.sex,
+        sex: null,
     };
 
     if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
             if (err) res.send({error : "Lỗi kết nối database" , err : err});
 
-            const query = connection.query("INSERT INTO `Users` set ? ", userNew, (err2, user) => {
+            const query = connection.query("INSERT INTO `Users` set ? , createTime = CURRENT_TIMESTAMP", userNew, (err2, user) => {
                 if (err2){
-                    // console.log(err2.errno);
-                    // if(err2.errno === 1062) res.send({
-                    //     signUp : false,
-                    //     error : "Phone này đã tồn tại",
-                    // });
 
-                    // res.send({signUp : false, error : "Lỗi đăng ký"});
                     res.json(err2);
                 } else {
 
                     // console.log(products);
-                    res.status(200).send({...user , user : userNew , signUp : true});
+                    res.send({...user , user : userNew , signUp : true});
                 }
 
             });
@@ -51,25 +45,19 @@ router.post("/mobile/login", (req, res) => {
     const { tk, mk } = req.body;
 
     req.getConnection((err, connection) => {
-        if (err) throw err;
+        if (err) res.json(err);
 
         connection.query("select * from Users", (err, users) => {
-            if (err) {
-                console.log(err);
-                res.send({error : err});
-            }
+            if (err) res.json(err);
 
             let login = false;
-            let admin = false;
 
             const a = users.filter((user, index) => {
                 if (tk === user.phone && mk === user.password && user.role === "food") {
                     login = true;
-                    admin = true;
                     return user;
                 }
                 else if (tk === user.phone && mk === user.password) {
-                    admin = false;
                     return user;
                 } 
                 // else {
