@@ -24,10 +24,12 @@ router.post("/mobile/addUser", (req, res) => {
                 if (err2.errno === 1062){
                     console.log(err2.errno);
                     res.send('');
-                };
+                } else {
 
-                // console.log(products);
-                res.send({...user , user : userNew , signUp : true});
+                    // console.log(products);
+                    res.send({...user , user : userNew , signUp : true});
+                }
+
             });
         });
     } else if (data.role !== "admin" || data.role !== "food") {
