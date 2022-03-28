@@ -18,15 +18,17 @@ router.post("/mobile/addUser", (req, res) => {
 
     if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
-            if (err) res.json(err);
+            if (err) res.send({error : "Lỗi kết nối database" , err : err});
 
             const query = connection.query("INSERT INTO `Users` set ? ", userNew, (err2, user) => {
                 if (err2){
                     console.log(err2.errno);
-                    res.send({
+                    if(err2.errno === 1062) res.send({
                         signUp : false,
                         error : "Phone này đã tồn tại",
                     });
+
+                    res.send({signUp : false, error : "Lỗi đăng ký"});
                 } else {
 
                     // console.log(products);
