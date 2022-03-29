@@ -4,4 +4,8 @@ router.get("/" , (req , res)=>{
     res.render('index', {layout : false });
 });
 
+router.get("/test" , (req , res)=>{
+    res.render("addFood" , {layout : false});
+});
+
 module.exports = router;

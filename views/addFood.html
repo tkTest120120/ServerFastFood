@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+            background-color: white;
+            width: 40%;
+            margin: 0 auto;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password],
+        input[type=file] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus,
+        input[type=file]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form>
+        <div class="container">
+            <h1> Đăng Nhập </h1>
+            <!-- <p>Vui lòng điền vào biểu mẫu này để đăng nhập.</p> -->
+            <span id="tbError" style="color: red; font-size: 16px; font-family: monospace;"></span>
+            <div>
+                {{#if error}}
+                {{#each error }}
+                <span style="color: red;"> {{this}} </span> <br>
+                {{/each}}
+                {{/if}}
+
+                {{#if notification}}
+                {{#each notification }}
+                <span style="color: blue;"> {{this}} </span>
+                {{/each}}
+                {{/if}}
+            </div>
+            <hr>
+
+            <label for="nameFood"><b>Tên món</b></label>
+            <input type="text" placeholder="Nhập tên món" name="nameFood" id="nameFood" required>
+
+            <label for="typeFood"><b>Loại món</b></label>
+            <input type="text" placeholder="Nhập Password" name="typeFood" id="typeFood" required>
+
+            <label for="imageFood"><b>Ảnh món</b></label>
+            <input type="file" placeholder="Nhập Password" name="imageFood" id="imageFood" required>
+
+            <button id="btn_addFood" class="registerbtn"> Thêm món </button>
+        </div>
+
+        <script>
+            const nameFood = document.getElementById("nameFood");
+            const typeFood = document.getElementById("typeFood");
+            const tbError = document.getElementById("tbError");
+            let imageFood = document.getElementById('imageFood');
+            // let img = document.getElementById('img');
+            const btn_addFood = document.getElementById("btn_addFood");
+
+
+
+            const convertBase64 = (file) => {
+                return new Promise((resolve, reject) => {
+                    let fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = () => {
+                        resolve(fileReader.result);
+                    };
+
+                    fileReader.onerror = (error) => {
+                        reject(error);
+                    };
+                });
+            };
+
+            btn_addFood.addEventListener('click', (e) => {
+
+                e.preventDefault();
+
+                if (nameFood.value.length <= 0) {
+                    tbError.innerHTML = "Phải nhập tên món";
+                    nameFood.focus();
+                } else if (typeFood.value.length <= 0) {
+                    tbError.innerHTML = "Phải nhập loại món";
+                    typeFood.focus();
+                } else if (imageFood.value.length <= 0) {
+                    tbError.innerHTML = "Phải chọn ảnh";
+                    imageFood.focus();
+                } else {
+                    window.location.replace("/users");
+                }
+            });
+
+            imageFood.addEventListener('change', async (e) => {
+                let base64 = await convertBase64(document.getElementById('imageFood').files[0]);
+                console.log(base64);
+                // img.src = base64;
+            });
+        </script>
+    </form>
+
+</body>
+
+</html>
