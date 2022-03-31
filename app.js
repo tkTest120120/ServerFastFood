@@ -14,7 +14,7 @@ const app = express();
 const appRoutes = require('./routes/app');
 const loginRoutes = require('./routes/login');
 const loginRoutes_Mobile = require('./routes/mobile/login');
-const foodsRoutes_Mobile = require('./routes/mobile/foods');
+const foodsRoutes = require('./routes/foods');
 // // routes for react native
 // const mobileRoutes = require('./routes/mobile');
 // const apiRoutes = require('./routes/api');
@@ -33,6 +33,9 @@ app.use(bodyParser.json() );
 app.use(cors());
 app.use(morgan('dev'));
 
+app.use(express.json({limit: '100mb'}));
+app.use(express.urlencoded({limit: '100mb'}));
+
 // kết nối database
 app.use(myConnection(mysql, {
     host: '37.59.55.185',
@@ -49,7 +52,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', appRoutes);
 app.use('/', loginRoutes);
 app.use('/', loginRoutes_Mobile);
-app.use('/', foodsRoutes_Mobile);
+app.use('/', foodsRoutes);
 // app.use('/', mobileRoutes);
 // app.use('/', apiRoutes);
 
