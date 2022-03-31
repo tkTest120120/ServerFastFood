@@ -52,4 +52,43 @@ router.get("/deleteLoaiMon/:idLoaiMon", (req, res) => {
     });
 });
 
+router.get("/editLoaiMon/:idLoaiMon", (req, res) => {
+    const { idLoaiMon } = req.params;
+    console.log("======================================================   " + idLoaiMon);
+
+    req.getConnection((err, connection) => {
+        if (err) res.json(err);
+
+        connection.query('select * from LoaiMon WHERE idLoaiMon = ?', [idLoaiMon], (err, data) => {
+            if (err) res.json(err);
+
+            console.log(data[0]);
+            res.render('editLoaiMon', { layout: false, data: data[0] });
+        });
+    });
+});
+
+router.post("/editLoaiMon/:idLoaiMon", (req, res) => {
+    const { idLoaiMon } = req.params;
+    const data = req.body;
+
+    const newLoaiMon = {
+        tenLoai : data.tenLoai,
+        imgLoaiMon : data.imgLoaiMon,
+    };
+
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    console.log( data.tenLoai , idLoaiMon);
+
+    req.getConnection((err, connection) => {
+        if (err) res.json(err);
+
+        connection.query('update LoaiMon set ? where idLoaiMon = ?', [newLoaiMon, idLoaiMon], (err, rows) => {
+            if (err) res.json(err);
+
+            res.send({status : "xong" , newLoaiMon : newLoaiMon , error : 0});
+        });
+    });
+});
+
 module.exports = router;

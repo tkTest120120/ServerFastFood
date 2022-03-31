@@ -22,7 +22,7 @@
                     <th scope="col">#</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
-                    <!-- <th scope="col">Handle</th> -->
+                    <th scope="col">Handle</th>
                 </tr>
             </thead>
             {{#if data}}
@@ -31,10 +31,10 @@
                     <tr>
                         <th scope="row">{{this.idLoaiMon}}</th>
                         <td>{{this.tenLoai}}</td>
-                        <!-- <td>{{this.imgLoaiMon}}</td> -->
+                        <td><a><img src="{{this.imgLoaiMon}}" width="50" height="50" /></a></td>
                         <td>
                             <a class="btn btn-danger" href="/deleteLoaiMon/{{this.idLoaiMon}}" > Xóa </a>
-                            <a class="btn btn-primary"> Sửa </a>
+                            <a class="btn btn-primary" href="/editLoaiMon/{{this.idLoaiMon}}" > Sửa </a>
                         </td>
                     </tr>
                     <!-- <tr>

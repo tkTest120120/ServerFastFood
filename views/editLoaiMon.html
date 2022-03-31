@@ -17,7 +17,8 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" name="tenLoai" required>
+                    <input type="text" class="form-control" id="inputEmail3" name="tenLoai" required
+                    value="{{data.tenLoai}}">
                 </div>
             </div>
             <div class="row mb-3">
@@ -27,8 +28,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Thêm Loại Món</button>
+            <button type="submit" class="btn btn-primary">Cập nhật Loại Món</button>
         </form>
+
+        <img src="{{data.imgLoaiMon}}" alt="Error ... !" width="300px" height="300px" >        
     </div>
 
     <script>
@@ -82,10 +85,12 @@
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:3000/loaiMon", requestOptions)
+                const idLoaiMon  = (String(window.location.href).split("/"))[4];
+
+                fetch("http://localhost:3000/editLoaiMon/" + idLoaiMon, requestOptions)
                     .then(response => response.text())
                     .then(result => {
-                        console.log(result);
+                        console.log(result.error);
                         window.location.replace("/loaiMon");
                     })
                     .catch(error => console.log('error', error));
