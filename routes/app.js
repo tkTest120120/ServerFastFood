@@ -5,7 +5,7 @@ router.get("/" , (req , res)=>{
 });
 
 router.get("/test" , (req , res)=>{
-    res.render("addFood" , {layout : false});
+    res.render("./MonAn/addMonAn" , {layout : false});
 });
 
 module.exports = router;

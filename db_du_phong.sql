@@ -6,6 +6,15 @@ trên web là có các chức năng
 - đơn đã order (tình trạng chuẩn bị, thanh toán, giao hàng)
 - cần thêm 1 bảng doanh thu để tính báo cáo nữa)
 
+CREATE TABLE usersFood (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    tk VARCHAR(1000) NOT NULL UNIQUE,
+    mk TEXT NOT NULL,
+    permission TEXT NOT NULL
+);
+
+INSERT INTO `usersFood`(`id`, `tk`, `mk`, `permission`) VALUES (null,'a','a','food')
+
 create table Users(
     phone varchar(15) primary key not null,
     password TEXT NOT NULL,
@@ -18,6 +27,17 @@ create table Users(
     sex TEXT(6),
     createTime DATETIME
 );
+
+INSERT INTO `Users`(`phone`, `password`, `role`, `email`, `full_name`, `address`, `avatar`, `birthOfDate`, `sex`, `createTime`) VALUES ('0123456789','123','food',null,null,null,null,null,null,null)
+
+CREATE TABLE Foods (
+    idFood int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    name TEXT NOT NULL,
+    typeFood TEXT NOT NULL,
+    price TEXT NOT NULL,
+    amount TEXT NOT NULL    
+);
+
 
 CREATE TABLE Banner(
     idBanner INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
