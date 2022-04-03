@@ -17,7 +17,8 @@
             <div class="row mb-3">
                 <label for="tenMonAn" class="col-sm-2 col-form-label">Tên Món</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tenMonAn" name="tenMonAn" required>
+                    <input type="text" class="form-control" id="tenMonAn" name="tenMonAn" required
+                    value="{{listMonAn.tenMonAn}}">
                 </div>
             </div>
 
@@ -25,7 +26,7 @@
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Loại Món</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" id="idLoaiMon">
-                        <option value="">Chọn loại món</option>
+                        <option value="{{listMonAn.idLoaiMon}}">{{listMonAn.tenLoai}}</option>
                         {{#if data}}
                         {{#each data }}
                         <option value="{{this.idLoaiMon}}">{{this.tenLoai}}</option>
@@ -39,14 +40,16 @@
             <div class="row mb-3">
                 <label for="gia" class="col-sm-2 col-form-label">Giá</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="gia" name="gia" required>
+                    <input type="number" class="form-control" id="gia" name="gia" required
+                    value="{{listMonAn.gia}}">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label for="soLuong" class="col-sm-2 col-form-label">Số lượng</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="soLuong" name="soLuong" required>
+                    <input type="number" class="form-control" id="soLuong" name="soLuong" required
+                    value="{{listMonAn.soLuong}}">
                 </div>
             </div>
 
@@ -56,7 +59,7 @@
                     <!-- <input type="number" class="form-control" id="moTa" name="moTa" required> -->
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Leave a comment here" id="moTa"
-                            style="height: 100px"></textarea>
+                            style="height: 100px" >{{listMonAn.moTa}}</textarea>
                         <label for="floatingTextarea2">Comments</label>
                     </div>
                 </div>
@@ -66,11 +69,11 @@
             <div class="row mb-3">
                 <label for="imgMon" class="col-sm-2 col-form-label">Ảnh món</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control" id="imgMon" name="imgMon" required multiple max="3">
+                    <input type="file" class="form-control" id="imgMon" name="imgMon" required multiple>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Thêm Món</button>
+            <button type="submit" class="btn btn-primary">Cập Nhật</button>
         </form>
     </div>
 
@@ -146,11 +149,13 @@
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:3000/addMonAn", requestOptions)
-                    .then(response => response.text())
+                fetch("http://localhost:3000/editMonAn/16", requestOptions)
+                    .then(response => response.json())
                     .then(result => {
                         console.log(result);
-                        window.location.replace("/monAn");
+                        if(result.update){
+                            window.location.replace("/monAn");
+                        }
                     })
                     .catch(error => console.log('error', error));
             }
