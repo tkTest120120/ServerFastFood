@@ -70,7 +70,7 @@ router.get("/users", (req, res) => {
 
             // console.log( users);
 
-            res.render('ListUsers', { data: users });
+            res.render('ListUsers', {layout : false, data: users });
         });
     });
 });
