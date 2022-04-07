@@ -66,7 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // khởi động server
 // const ipAdress = '192.168.43.190';
 const ipAdress = '192.168.1.13';
-const cong = process.env.PORT || 3000;
+const cong = process.env.PORT || 3001;
 
 app.listen( cong , () => {
     // console.log("Khởi động server tại http://" + ipAdress + ":" + app.get('port'));

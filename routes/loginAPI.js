@@ -72,15 +72,18 @@ router.get("/api/users", (req, res) => {
     });
 });
 
-router.get("/deleteUser/:phone", (req, res) => {
-    const { phone } = req.params;
+router.post("/api/deleteUser", (req, res) => {
+    const { phone } = req.body;
+
+    console.log(req.body);
+
     req.getConnection((err, connection) => {
-        if (err) throw err;
+        if (err) res.json(err);
 
         connection.query('delete from Users where phone = ?', [phone], (err, rows) => {
-            if (err) throw err;
+            if (err) res.json(err);
 
-            res.redirect('/users');
+            res.json({delete : true , phone : phone});
         });
     });
 });
