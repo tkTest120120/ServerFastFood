@@ -14,7 +14,9 @@ const app = express();
 const appRoutes = require('./routes/app');
 const loginRoutes = require('./routes/login');
 const loginRoutes_Mobile = require('./routes/mobile/login');
+const loginRoutes_API = require('./routes/loginAPI');
 const foodsRoutes = require('./routes/foods');
+const foodsRoutes_Mobile = require('./routes/mobile/foodsMobile');
 // // routes for react native
 // const mobileRoutes = require('./routes/mobile');
 // const apiRoutes = require('./routes/api');
@@ -52,7 +54,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', appRoutes);
 app.use('/', loginRoutes);
 app.use('/', loginRoutes_Mobile);
+app.use('/', loginRoutes_API);
 app.use('/', foodsRoutes);
+app.use('/', foodsRoutes_Mobile);
 // app.use('/', mobileRoutes);
 // app.use('/', apiRoutes);
 

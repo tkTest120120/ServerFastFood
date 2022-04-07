@@ -58,19 +58,16 @@ router.post("/login", (req, res) => {
     // res.send(req.body);
 });
 
-router.get("/users", (req, res) => {
+router.get("/api/users", (req, res) => {
     req.getConnection((err, connection) => {
-        if (err) throw err;
+        if (err) res.json(err);
 
         connection.query("select * from Users", (err, users) => {
-            if (err) {
-                console.log(err);
-                res.render('ListUsers', { layout: false, error: ['Lỗi kết nối Database'] });
-            }
+            if (err) res.json(err);
 
             // console.log( users);
 
-            res.render('ListUsers', { data: users });
+            res.json(users);
         });
     });
 });

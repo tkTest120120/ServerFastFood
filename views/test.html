@@ -1,12 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title> index </title>
+    <style>
+        .App {
+            width: 90%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .logo {
+            /* align-self: center; */
+            font-family: sans-serif;
+            font-weight: bolder;
+            background-color: wheat;
+            color: black;
+            /* line-height: 20px; */
+            display: block;
+            /* color: #f2f2f2; */
+            text-align: center;
+            padding: 0px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            border-right: 2px solid white;
+        }
+        /* Place the navbar at the bottom of the page, and make it stick */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            /* position: fixed; */
+            top: 0;
+            width: 100%;
+            display: flex;
+        }
+        /* Style the links inside the navigation bar */
+        .navbar>a {
+            /* float: left; */
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            font-family: monospace;
+        }
+        /* Change the color of links on hover */
+        .navbar>a:hover {
+            font-family: tahoma;
+            font-weight: bolder;
+            background-color: #ddd;
+            color: black;
+        }
+        /* Add a color to the active/current link */
+        .navbar a.active {
+            /* background-color: #04aa6d; */
+            /* color: white; */
+        }
+        .search {
+            align-self: center;
+            margin-left: 10px;
+            display: flex;
+            /* background-color: red; */
+            width: 60%;
+            max-height: 40px;
+        }
+        .edt_search {
+            font-size: 18px;
+        }
+        .btn_search {
+            margin-left: 20px;
+            width: 50%;
+            height: fit-content;
+            align-self: center;
+            line-height: 30px;
+            /* padding: 0 20px; */
+            background-color: rgb(3, 22, 109);
+            color: white;
+            font-size: 18px;
+            font-family: tahoma;
+        }
+        .btn_search:hover {
+            background-color: white;
+            color: rgb(3, 43, 23);
+            font-size: 18px;
+            font-family: tahoma;
+        }
+        .tk {
+            align-self: center;
+            margin-right: 20px;
+            display: flex;
+            /* background-color: #04AA6D; */
+            width: 100%;
+            justify-content: flex-end;
+        }
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 0 5px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        .btn_login {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+        .btn_login:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn_sign {
+            background-color: white;
+            color: black;
+            border: 2px solid #f44336;
+        }
+        .btn_sign:hover {
+            background-color: #f44336;
+            color: white;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            font-size: 18px;
+        }
+        .trai {
+            margin-top: 50px;
+            width: 100%;
+            float: left;
+        }
+        .phai {
+            margin-top: 20px;
+            width: 25%;
+            float: left;
+            /* background-color: red; */
+        }
+        .btn_update {
+            /* line-height: 30px;
+    font-size: 18px;
+    background-color: blue;
+    color: white;
+    padding: 0 20px;
+    font-family: tahoma; */
+            /* font-weight: bold; */
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 0px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+            line-height: 30px;
+        }
+        .btn_update:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn_remove {
+            background-color: #4CAF50;
+            /* Green */
+            color: white;
+            border: none;
+            padding: 0px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+            line-height: 30px;
+        }
+        .btn_remove:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+        .footer {
+            clear: both;
+            background-color: grey;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            font-size: 20px;
+            font-family: monospace;
+        }
+        * {
+            /* box-sizing: border-box; */
+        }
+        /* Add padding to Apps */
+        .App_form {
+            padding: 0 10px;
+            background-color: white;
+            width: 90%;
+            margin: 0 auto;
+        }
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 90%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        input[type=text]:focus,
+        input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            width: 99%;
+            opacity: 0.9;
+            text-align: center;
+            font-family: tahoma;
+            font-size: 18px;
+        }
+        .registerbtn:hover {
+            opacity: 1;
+        }
+        /* Add a blue text color to links */
+        /* a {
+    color: dodgerblue;
+} */
+        .add_user{
+            text-decoration: none;
+            font-family: monospace;
+            padding: 10px 30px;
+            color: white;
+            background-color: green;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="App">
+
+
+        <nav class="navbar">
+            <div class="logo">
+                <p> Admin </p>
+            </div>
+            
+            <a href="" class="active" >Home</a>
+            <a href="/loaiMon" class="active" >Loại Món</a>
+            <a href="/monAn" class="active" >Món Ăn</a>
+
+            <!-- <a href="">News</a>
+            <a href="">Contact</a> -->
+
+            <!-- <form method="post" class="search">
+                <input type="text" class="edt_search" placeholder="Search" />
+                <button type="submit" class="btn_search"> Tìm Kiếm </button>
+            </form> -->
+
+            <!-- <div class="tk">
+                <span> m@fpt.edu.vn </span>
+                <button type="submit"> Logout </button>
+
+                <a href="/login" class="button btn_login"> Đăng Nhập </a>
+                <a href="/signup" class="button btn_sign"> Đăng Ký </a>
+            </div> -->
+        </nav>
+
+        <!-- <header>
+            <img src="../image/1.jpg" alt="Lỗi ảnh" class="img_bn" >
+        </header> -->
+
+        
+        <div class="trai">
+            <a href="/addUser" class="add_user" > Thêm User </a>
+            <table style="width:100%">
+                <thead>
+                    <tr>
+                        <td> Phone </td>
+                        <td> Password </td>
+                        <td> Role </td>
+                        <td> Email </td>
+                        <td> Full Name </td>
+                        <td> Address </td>
+                        <td> Avatar </td>
+                        <td> Birth Of Date </td>
+                        <td> Sex </td>
+                        <td> createTime </td>
+                        <td> Actions </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if data}}
+                        {{#each data }}
+                            <tr>
+                                <td>
+                                    {{this.phone}}
+                                </td>
+                                <td>
+                                    {{this.password}}
+                                </td>
+                                <td>
+                                    {{this.role}}
+                                </td>
+                                <td>
+                                    {{this.email}}
+                                </td>
+                                <td>
+                                    {{this.full_name}}
+                                </td>
+
+                                <td>
+                                    {{this.address}}
+                                </td>
+                                <td>
+                                    {{this.avatar}}
+                                </td>
+                                <td>
+                                    {{this.birthOfDate}}
+                                </td>
+                                <td>
+                                    {{this.sex}}
+                                </td>
+                                <td>
+                                    {{this.createTime}}
+                                </td>
+
+                                <td>
+                                    <a href="/editUser/{{this.phone}}" class="btn_update"> Edit </a>
+                                    <a href="/deleteUser/{{this.phone}}" class="btn_remove"> Delete </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    {{/if}}                        
+
+                </tbody>
+            </table>
+            <div>
+                {{#if error}}
+                    {{#each error }}
+                        <span style="color: red;font-size: 22px;" > {{this}} </span>
+                    {{/each}}
+                {{/if}}
+
+                {{#if notification}}
+                {{#each notification }}
+                    <span style="color: blue;font-size: 22px;font-family: tahoma;" > {{this}} </span>
+                {{/each}}
+            {{/if}}
+            </div>
+        </div>
+
+        <!-- <div class="phai">
+            <form action="/user" method="POST" >
+                <div class="App_form">
+                    <h1> Thêm Users </h1>
+                    <div>
+                        {{#if error2}}
+                            {{#each error2 }}
+                                <span style="color: red;font-size: 20px;" > {{this}} </span>
+                            {{/each}}
+                        {{/if}}
+        
+                        {{#if notification2}}
+                        {{#each notification2 }}
+                            <span style="color: blue;font-size: 20px;font-family: tahoma;" > {{this}} </span>
+                        {{/each}}
+                    {{/if}}
+                    </div>
+                    <hr>
+
+                    <label for="email"><b> UserName </b></label>
+                    <input type="text" placeholder="Nhập UserName" name="tk" id="email" required>
+
+                    <label for="address" > <b> Password </b> </label>
+                    <input type="text" placeholder="Nhập Password" name="mk" id="address"  required>
+
+                    <label for="psw"><b> Nhập Lại Password </b></label>
+                    <input type="text" placeholder="Nhập Lại Password" name="mk_repeat" id="psw"  required>
+
+                    <label for="permission"><b> Quyền truy cập </b></label>
+                    <input type="text" placeholder="admin hoặc food" name="permission" id="permission"  required>
+
+                    <button type="submit" class="registerbtn"> Thêm </button>
+                </div>
+
+
+            </form>
+        </div> -->
+
+        <footer class="footer">
+            <p> Đây là Dự Án Tốt Nghiệp </p>
+        </footer>
+
+    </div>
 </body>
+
 </html>
