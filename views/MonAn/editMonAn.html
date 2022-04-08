@@ -1,174 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Món</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container pt-5">
-        <form>
-            <div class="row mb-3">
-                <label for="tenMonAn" class="col-sm-2 col-form-label">Tên Món</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tenMonAn" name="tenMonAn" required
+<div style="margin: 10px 2px;">
+    <form>
+        <div class="row mb-3">
+            <label for="tenMonAn" class="col-sm-2 col-form-label">Tên Món</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="tenMonAn" name="tenMonAn" required
                     value="{{listMonAn.tenMonAn}}">
-                </div>
             </div>
+        </div>
 
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Loại Món</label>
-                <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" id="idLoaiMon">
-                        <option value="{{listMonAn.idLoaiMon}}">{{listMonAn.tenLoai}}</option>
-                        {{#if data}}
-                        {{#each data }}
-                        <option value="{{this.idLoaiMon}}">{{this.tenLoai}}</option>
-                        {{/each}}
-                        {{/if}}
-                    </select>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Loại Món</label>
+            <div class="col-sm-10">
+                <select class="form-select" aria-label="Default select example" id="idLoaiMon">
+                    <option value="{{listMonAn.idLoaiMon}}">{{listMonAn.tenLoai}}</option>
+                    {{#if data}}
+                    {{#each data }}
+                    <option value="{{this.idLoaiMon}}">{{this.tenLoai}}</option>
+                    {{/each}}
+                    {{/if}}
+                </select>
 
-                </div>
             </div>
+        </div>
 
-            <div class="row mb-3">
-                <label for="gia" class="col-sm-2 col-form-label">Giá</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="gia" name="gia" required
-                    value="{{listMonAn.gia}}">
-                </div>
+        <div class="row mb-3">
+            <label for="gia" class="col-sm-2 col-form-label">Giá</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="gia" name="gia" required value="{{listMonAn.gia}}">
             </div>
+        </div>
 
-            <div class="row mb-3">
-                <label for="soLuong" class="col-sm-2 col-form-label">Số lượng</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="soLuong" name="soLuong" required
+        <div class="row mb-3">
+            <label for="soLuong" class="col-sm-2 col-form-label">Số lượng</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="soLuong" name="soLuong" required
                     value="{{listMonAn.soLuong}}">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="moTa" class="col-sm-2 col-form-label">Mô tả</label>
+            <div class="col-sm-10">
+                <!-- <input type="number" class="form-control" id="moTa" name="moTa" required> -->
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="moTa"
+                        style="height: 100px">{{listMonAn.moTa}}</textarea>
+                    <label for="floatingTextarea2">Comments</label>
                 </div>
             </div>
+        </div>
 
-            <div class="row mb-3">
-                <label for="moTa" class="col-sm-2 col-form-label">Mô tả</label>
-                <div class="col-sm-10">
-                    <!-- <input type="number" class="form-control" id="moTa" name="moTa" required> -->
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="moTa"
-                            style="height: 100px" >{{listMonAn.moTa}}</textarea>
-                        <label for="floatingTextarea2">Comments</label>
-                    </div>
-                </div>
+        <!-- them anh mon an -->
+        <div class="row mb-3">
+            <label for="imgMon" class="col-sm-2 col-form-label">Ảnh món</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="imgMon" name="imgMon" required multiple>
             </div>
+        </div>
 
-            <!-- them anh mon an -->
-            <div class="row mb-3">
-                <label for="imgMon" class="col-sm-2 col-form-label">Ảnh món</label>
-                <div class="col-sm-10">
-                    <input type="file" class="form-control" id="imgMon" name="imgMon" required multiple>
-                </div>
-            </div>
+        <button type="button" id="btnUpdate" class="btn btn-primary">Cập Nhật</button>
+    </form>
+</div>
 
-            <button type="submit" class="btn btn-primary">Cập Nhật</button>
-        </form>
-    </div>
+<script>
+    const tenMonAn = document.getElementById("tenMonAn");
+    const idLoaiMon = document.getElementById("idLoaiMon");
+    const gia = document.getElementById("gia");
+    const soLuong = document.getElementById("soLuong");
+    const moTa = document.getElementById("moTa");
+    const imgMon = document.getElementById("imgMon");
 
-    <script>
-        const tenMonAn = document.getElementById("tenMonAn");
-        const idLoaiMon = document.getElementById("idLoaiMon");
-        const gia = document.getElementById("gia");
-        const soLuong = document.getElementById("soLuong");
-        const moTa = document.getElementById("moTa");
-        const imgMon = document.getElementById("imgMon");
+    const btn_send = document.getElementById("btnUpdate");
+    let imgLoaiMonBase64 = [];
 
-        const btn_send = document.querySelector("button");
-        let imgLoaiMonBase64 = [];
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
 
-        const convertBase64 = (file) => {
-            return new Promise((resolve, reject) => {
-                let fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
 
-                fileReader.onload = () => {
-                    resolve(fileReader.result);
-                };
-
-                fileReader.onerror = (error) => {
-                    reject(error);
-                };
-            });
-        };
-
-        btn_send.addEventListener('click', async (e) => {
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (tenMonAn.value === '') {
-                alert("Không được để trống !");
-                tenMonAn.focus();
-            } else if (idLoaiMon.value === '') {
-                alert("Phải chọn loại món !");
-                idLoaiMon.focus();
-            } else if (gia.value === '' || Number(gia.value) < 1) {
-                alert("Phải nhập số > 0 !");
-                gia.focus();
-            } else if (soLuong.value === '') {
-                alert("Không được để trống !");
-                soLuong.focus();
-            } else if(imgMon.value === ''){
-                alert("Phải chọn ảnh !");
-                imgMon.focus();
-            } else if ( imgMon.files.length > 6) {
-                alert("Chỉ được chọn 6 file ảnh !");
-                imgMon.focus();
-            }
-            else {
-                let base64 = await convertBase64(document.getElementById('imgMon').files[0]);
-                // console.log(base64);
-
-                const myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-                const urlencoded = new URLSearchParams();
-                urlencoded.append("tenMonAn", tenMonAn.value);
-                urlencoded.append("idLoaiMon", idLoaiMon.value);
-                urlencoded.append("gia", gia.value);
-                urlencoded.append("soLuong", soLuong.value);
-                urlencoded.append("moTa", moTa.value);
-                urlencoded.append("img1", base64);
-
-                const requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: urlencoded,
-                    redirect: 'follow'
-                };
-
-                fetch("http://localhost:3000/editMonAn/16", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log(result);
-                        if(result.update){
-                            window.location.replace("/monAn");
-                        }
-                    })
-                    .catch(error => console.log('error', error));
-            }
-
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
         });
+    };
 
-        imgMon.addEventListener('change', (e) => {
-            if (imgMon.files.length > 6) {
-                alert("Chỉ được chọn 6 file ảnh !");
-                imgMon.focus();
-            }
-        });
-    </script>
-</body>
+    btn_send.addEventListener('click', async (e) => {
 
-</html>
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (tenMonAn.value === '') {
+            alert("Không được để trống !");
+            tenMonAn.focus();
+        } else if (idLoaiMon.value === '') {
+            alert("Phải chọn loại món !");
+            idLoaiMon.focus();
+        } else if (gia.value === '' || Number(gia.value) < 1) {
+            alert("Phải nhập số > 0 !");
+            gia.focus();
+        } else if (soLuong.value === '') {
+            alert("Không được để trống !");
+            soLuong.focus();
+        } else if (imgMon.value === '') {
+            alert("Phải chọn ảnh !");
+            imgMon.focus();
+        } else if (imgMon.files.length > 6) {
+            alert("Chỉ được chọn 6 file ảnh !");
+            imgMon.focus();
+        }
+        else {
+            let base64 = await convertBase64(document.getElementById('imgMon').files[0]);
+            // console.log(base64);
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            const urlencoded = new URLSearchParams();
+            urlencoded.append("tenMonAn", tenMonAn.value);
+            urlencoded.append("idLoaiMon", idLoaiMon.value);
+            urlencoded.append("gia", gia.value);
+            urlencoded.append("soLuong", soLuong.value);
+            urlencoded.append("moTa", moTa.value);
+            urlencoded.append("img1", base64);
+
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+            const idMonAn = (String(window.location.href).split("/"))[4];
+
+            console.log(idMonAn);
+
+            fetch("https://fastfoodserver.herokuapp.com/editMonAn/" + idMonAn, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    if (result.update) {
+                        window.location.replace("/monAn");
+                    }
+                })
+                .catch(error => console.log('error', error));
+        }
+
+    });
+
+    imgMon.addEventListener('change', (e) => {
+        if (imgMon.files.length > 6) {
+            alert("Chỉ được chọn 6 file ảnh !");
+            imgMon.focus();
+        }
+    });
+</script>

@@ -196,7 +196,7 @@ router.get("/editMonAn/:idMonAn", (req, res) => {
                 data[i].tenLoai = tenLoai;
             }
 
-            res.render('./MonAn/editMonAn', { layout: false, data: listLoaiMon , listMonAn : data[0] });
+            res.render('./MonAn/editMonAn', { data: listLoaiMon , listMonAn : data[0] });
         });
     });
 });
