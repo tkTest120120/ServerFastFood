@@ -106,8 +106,12 @@
             value="{{data.password}}" required>
 
             <label for="permission"><b> Quyền truy cập </b></label>
-            <input type="text" placeholder="admin hoặc food" name="role" id="permission"  
-            value="{{data.role}}" required>
+            <!-- <input type="text" placeholder="admin hoặc food" name="role" id="permission" required> -->
+            <select name="role" id="permission">
+                <option value="{{data.role}}">{{data.role}}</option>
+                <option value="food">food</option>
+                <option value="admin">admin</option>
+            </select>
 
 
             <label for="email"><b> Email </b></label>

@@ -1,98 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container">
-        <form>
-            <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Tên Loại Món</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" name="tenLoai" required>
-                </div>
+<div style="margin: 20px 0;">
+    <form>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Tên Loại Món</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputEmail3" name="tenLoai" required>
             </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="file" class="form-control" id="inputPassword3" name="imgLoaiMon" required>
-                </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Ảnh loại món</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" id="inputPassword3" name="imgLoaiMon" required>
             </div>
+        </div>
 
-            <button type="submit" class="btn btn-primary">Thêm Loại Món</button>
-        </form>
-    </div>
+        <button type="button" id="btn_add" class="btn btn-primary">Thêm Loại Món</button>
+    </form>
+</div>
 
-    <script>
-        const tenLoai = document.getElementById("inputEmail3");
-        const imgLoaiMon = document.getElementById("inputPassword3");
-        let imgLoaiMonBase64 = '';
-        const btn_send = document.querySelector("button");
+<script>
+    const tenLoai = document.getElementById("inputEmail3");
+    const imgLoaiMon = document.getElementById("inputPassword3");
+    let imgLoaiMonBase64 = '';
+    const btn_send = document.getElementById("btn_add");
 
-        const convertBase64 = (file) => {
-            return new Promise((resolve, reject) => {
-                let fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
 
-                fileReader.onload = () => {
-                    resolve(fileReader.result);
-                };
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
 
-                fileReader.onerror = (error) => {
-                    reject(error);
-                };
-            });
-        };
-
-        btn_send.addEventListener('click', async (e) => {
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (tenLoai.value === '') {
-                alert("Khong duoc de trong");
-                tenLoai.focus();
-            } else if (imgLoaiMon.value === ''){
-                alert("Khong duoc de trong");
-                imgLoaiMon.focus();
-            }
-            else {
-                let base64 = await convertBase64(document.getElementById('inputPassword3').files[0]);
-                // console.log(base64);
-
-                const myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-                const urlencoded = new URLSearchParams();
-                urlencoded.append("tenLoai", tenLoai.value);
-                urlencoded.append("imgLoaiMon", base64);
-
-                const requestOptions = {
-                    method: 'POST',
-                    headers: myHeaders,
-                    body: urlencoded,
-                    redirect: 'follow'
-                };
-
-                fetch("http://localhost:3000/loaiMon", requestOptions)
-                    .then(response => response.text())
-                    .then(result => {
-                        console.log(result);
-                        window.location.replace("/loaiMon");
-                    })
-                    .catch(error => console.log('error', error));
-            }
-
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
         });
-    </script>
-</body>
+    };
 
-</html>
+    btn_send.addEventListener('click', async (e) => {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (tenLoai.value === '') {
+            alert("Không được để trống !");
+            tenLoai.focus();
+        } else if (imgLoaiMon.value === ''){
+            alert("Không được để trống !");
+            imgLoaiMon.focus();
+        }
+        else {
+            let base64 = await convertBase64(document.getElementById('inputPassword3').files[0]);
+            // console.log(base64);
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            const urlencoded = new URLSearchParams();
+            urlencoded.append("tenLoai", tenLoai.value);
+            urlencoded.append("imgLoaiMon", base64);
+
+            const requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+            fetch("https://fastfoodserver.herokuapp.com/loaiMon", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    window.location.replace("/loaiMon");
+                })
+                .catch(error => console.log('error', error));
+        }
+
+    });
+</script>

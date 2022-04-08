@@ -10,14 +10,14 @@ router.get("/loaiMon", (req, res) => {
 
             // console.log( users);
 
-            res.render("listLoaiMon", { layout: false, data: datas });
+            res.render("listLoaiMon", { data: datas });
         });
     });
 
 });
 
 router.get("/addLoaiMon", (req, res) => {
-    res.render("addLoaiMon", { layout: false });
+    res.render("addLoaiMon", );
 });
 
 router.post("/loaiMon", (req, res) => {
@@ -42,6 +42,9 @@ router.post("/loaiMon", (req, res) => {
 
 router.get("/deleteLoaiMon/:idLoaiMon", (req, res) => {
     const { idLoaiMon } = req.params;
+
+    console.log(idLoaiMon);
+
     req.getConnection((err, connection) => {
         if (err) res.json(err);
 
