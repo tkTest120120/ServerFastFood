@@ -17,7 +17,7 @@ router.get("/loaiMon", (req, res) => {
 });
 
 router.get("/addLoaiMon", (req, res) => {
-    res.render("addLoaiMon", );
+    res.render("addLoaiMon");
 });
 
 router.post("/loaiMon", (req, res) => {
@@ -116,7 +116,7 @@ router.get("/monAn", (req, res) => {
                 datas[i].tenLoai = tenLoai;
             }
 
-            res.render("./MonAn/listMonAn", { layout: false, data: datas });
+            res.render("./MonAn/listMonAn", { data: datas });
         });
     });
 });
@@ -130,7 +130,7 @@ router.get("/addMonAn", (req, res) => {
 
             // console.log( users);
 
-            res.render("./MonAn/addMonAn", { layout: false, data: datas });
+            res.render("./MonAn/addMonAn", { data: datas });
         });
     });
 });

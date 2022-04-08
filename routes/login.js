@@ -30,19 +30,19 @@ router.post("/login", (req, res) => {
                     else if (tk === user.phone && mk === user.password) {
                         admin = false;
                         return user;
-                    } 
+                    }
                     // else {
                     //     return;
                     // }
 
                 });
 
-                console.log(a , "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+                console.log(a, "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
                 if (login) {
                     res.redirect("/users");
-                } else if (a.length === 1){
-                        res.render('index', {layout : false , error : ["Tài khoản không có quyền admin"] });
+                } else if (a.length === 1) {
+                    res.render('index', { layout: false, error: ["Tài khoản không có quyền admin"] });
                 }
                 else {
 
@@ -63,14 +63,19 @@ router.get("/users", (req, res) => {
         if (err) throw err;
 
         connection.query("select * from Users", (err, users) => {
-            if (err) {
-                console.log(err);
-                res.render('ListUsers', { layout: false, error: ['Lỗi kết nối Database'] });
-            }
+            if (err) res.json(err);
 
-            // console.log( users);
+            users = users.map((item, index) => {
+                const timeCreate = new Date(item.createTime);
+                const yyyy = timeCreate.getFullYear();
+                let mm = timeCreate.getMonth() + 1; // Months start at 0!
+                let dd = timeCreate.getDate();
+                const today = dd + '/' + mm + '/' + yyyy + ` ${timeCreate.getHours()}:${timeCreate.getMinutes()}:${timeCreate.getSeconds()}`;
+                item.timeCreate = today;
+                return item;
+            });
 
-            res.render('ListUsers', {data: users });
+            res.render('ListUsers', { data: users });
         });
     });
 });
@@ -88,8 +93,8 @@ router.get("/deleteUser/:phone", (req, res) => {
     });
 });
 
-router.get("/addUser" , (req , res)=>{
-    res.render("addUser" , {layout : false});
+router.get("/addUser", (req, res) => {
+    res.render("addUser", { layout: false });
 });
 
 router.post("/addUser", (req, res) => {
@@ -97,15 +102,15 @@ router.post("/addUser", (req, res) => {
     console.log(data);
 
     const user = {
-        phone : data.phone,
+        phone: data.phone,
         password: data.password,
         role: data.role,
         email: data.email,
-        full_name : data.full_name,
-        address : data.address,
-        avatar : data.avatar,
-        birthOfDate : null, /////////////////////////////
-        sex : data.sex,
+        full_name: data.full_name,
+        address: data.address,
+        avatar: data.avatar,
+        birthOfDate: null, /////////////////////////////
+        sex: data.sex,
     };
 
     if (data.password !== data.mk_repeat) {
@@ -150,23 +155,23 @@ router.post("/updateUser/:phone", (req, res) => {
         password: data.password,
         role: data.role,
         email: data.email,
-        full_name : data.full_name,
-        address : data.address,
-        avatar : data.avatar,
-        birthOfDate : null,
-        sex : data.sex,
+        full_name: data.full_name,
+        address: data.address,
+        avatar: data.avatar,
+        birthOfDate: null,
+        sex: data.sex,
     };
 
     const data2 = {
-        phone : phone,
+        phone: phone,
         password: data.password,
         role: data.role,
         email: data.email,
-        full_name : data.full_name,
-        address : data.address,
-        avatar : data.avatar,
-        birthOfDate : data.birthOfDate,
-        sex : data.sex,
+        full_name: data.full_name,
+        address: data.address,
+        avatar: data.avatar,
+        birthOfDate: data.birthOfDate,
+        sex: data.sex,
     };
 
     // console.log(data);
