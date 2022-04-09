@@ -10,7 +10,7 @@ router.get("/api/loaiMon", (req, res) => {
 
             // console.log( users);
 
-            res.json( { data: datas });
+            res.json( datas);
         });
     });
 
