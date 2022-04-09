@@ -72,8 +72,8 @@ router.post("/api/editLoaiMon", (req, res) => {
     });
 });
 
-router.post("/editLoaiMon/:idLoaiMon", (req, res) => {
-    const { idLoaiMon } = req.params;
+router.post("/api/updateLoaiMon", (req, res) => {
+    const { idLoaiMon } = req.body;
     const data = req.body;
 
     const newLoaiMon = {
@@ -90,7 +90,7 @@ router.post("/editLoaiMon/:idLoaiMon", (req, res) => {
         connection.query('update LoaiMon set ? where idLoaiMon = ?', [newLoaiMon, idLoaiMon], (err, rows) => {
             if (err) res.json(err);
 
-            res.send({ status: "xong", newLoaiMon: newLoaiMon, error: 0 });
+            res.json({ status: "xong", newLoaiMon: newLoaiMon, error: 0 , updateLoaiMon : true});
         });
     });
 });
