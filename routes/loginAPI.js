@@ -109,7 +109,7 @@ router.post("/api/addUser", (req, res) => {
     };
 
     if (data.password !== data.mk_repeat) {
-        res.render('addUser', { layout: false, error: ["2 mật khẩu không khớp nhau"] });
+        res.json({error : "2 mật khẩu không khớp nhau" , addUser : false});
     } else if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
             if (err) res.json(err);
@@ -122,7 +122,7 @@ router.post("/api/addUser", (req, res) => {
             });
         });
     } else if (data.role !== "admin" || data.role !== "food") {
-        res.render('addUser', { layout: false, error: ["Bạn nhập sai quyền truy cập"] });
+        res.json({addUser : false , error: "Bạn nhập sai quyền truy cập"});
     }
 });
 
