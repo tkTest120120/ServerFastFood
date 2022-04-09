@@ -124,8 +124,8 @@ router.post("/api/addUser", (req, res) => {
     }
 });
 
-router.get("/editUser/:phone", (req, res) => {
-    const { phone } = req.params;
+router.post("/api/geteditUser", (req, res) => {
+    const { phone } = req.body;
     console.log("======================================================   " + phone);
 
     req.getConnection((err, connection) => {
@@ -135,7 +135,7 @@ router.get("/editUser/:phone", (req, res) => {
             if (err) throw err;
 
             console.log(user[0]);
-            res.render('editUser', { layout: false, data: user[0] });
+            res.json({data: user[0]});
         });
     });
 });
