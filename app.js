@@ -38,6 +38,7 @@ app.use(morgan('dev'));
 
 app.use(express.json({limit: '100mb'}));
 app.use(express.urlencoded({limit: '100mb'}));
+app.use(express.bodyParser({limit: '100mb'}));
 
 // kết nối database
 app.use(myConnection(mysql, {
