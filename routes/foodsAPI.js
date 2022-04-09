@@ -40,8 +40,8 @@ router.post("/api/addLoaiMon", (req, res) => {
     });
 });
 
-router.get("/deleteLoaiMon/:idLoaiMon", (req, res) => {
-    const { idLoaiMon } = req.params;
+router.get("/api/deleteLoaiMon", (req, res) => {
+    const { idLoaiMon } = req.body;
 
     console.log(idLoaiMon);
 
@@ -51,7 +51,7 @@ router.get("/deleteLoaiMon/:idLoaiMon", (req, res) => {
         connection.query('delete from LoaiMon where idLoaiMon = ?', [idLoaiMon], (err2, rows) => {
             if (err2) res.json(err2);
 
-            res.redirect('/loaiMon');
+            res.json({deleteLoaiMon : true , idLoaiMon : idLoaiMon});
         });
     });
 });
