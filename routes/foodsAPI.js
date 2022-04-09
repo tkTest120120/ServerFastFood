@@ -56,8 +56,8 @@ router.post("/api/deleteLoaiMon", (req, res) => {
     });
 });
 
-router.get("/editLoaiMon/:idLoaiMon", (req, res) => {
-    const { idLoaiMon } = req.params;
+router.post("/api/editLoaiMon", (req, res) => {
+    const { idLoaiMon } = req.body;
     console.log("======================================================   " + idLoaiMon);
 
     req.getConnection((err, connection) => {
@@ -67,7 +67,7 @@ router.get("/editLoaiMon/:idLoaiMon", (req, res) => {
             if (err) res.json(err);
 
             console.log(data[0]);
-            res.render('editLoaiMon', { layout: false, data: data[0] });
+            res.json(data[0]);
         });
     });
 });
