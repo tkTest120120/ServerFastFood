@@ -5,7 +5,7 @@ const express = require('express'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
     myConnection = require('express-myconnection'),
-    {engine }  = require('express-handlebars');
+    { engine } = require('express-handlebars');
 
 
 const app = express();
@@ -26,23 +26,24 @@ const foodsRoutes_API = require('./routes/foodsAPI');
 // app.set('port', 3001);
 // app.set('view engine', 'ejs');
 
-app.engine('.html', engine({ extname: '.html', defaultLayout: "main"}));
+app.engine('.html', engine({ extname: '.html', defaultLayout: "main" }));
 app.set('view engine', '.html');
 app.set('views', path.join(__dirname, 'views'));
 
 // để post data json
-app.use(bodyParser.json() );
+app.use(bodyParser.json({ limit: '100mb', type: 'application/json' }))
 // cors
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use(express.json({limit: '100mb'}));
-app.use(express.urlencoded({limit: '100mb'}));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({
     parameterLimit: 100000,
     limit: '100mb',
     extended: true
-  }));
+}));
+app.use(express.limit(100000000))
 
 // kết nối database
 app.use(myConnection(mysql, {
@@ -75,9 +76,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const ipAdress = '192.168.1.13';
 const cong = process.env.PORT || 3001;
 
-app.listen( cong , () => {
+app.listen(cong, () => {
     // console.log("Khởi động server tại http://" + ipAdress + ":" + app.get('port'));
     // console.log("Khởi động server tại http://" + 'http://127.0.0.1' +  ":" + app.get('port') );    
     // console.log("Khởi động server tại http://localhost" + ":" + app.get('port') );    
-    console.log("Khởi động server tại http://localhost" + ":" + cong ); 
+    console.log("Khởi động server tại http://localhost" + ":" + cong);
 });
