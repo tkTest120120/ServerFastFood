@@ -108,9 +108,7 @@ router.post("/api/addUser", (req, res) => {
         sex : data.sex,
     };
 
-    if (data.password !== data.mk_repeat) {
-        res.json({error : "2 mật khẩu không khớp nhau" , addUser : false});
-    } else if (data.role === 'admin' || data.role === 'food') {
+    if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
             if (err) res.json(err);
 
