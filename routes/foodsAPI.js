@@ -20,7 +20,7 @@ router.get("/api/loaiMon", (req, res) => {
 //     res.render("addLoaiMon");
 // });
 
-router.post("/api/loaiMon", (req, res) => {
+router.post("/api/addLoaiMon", (req, res) => {
     const data = req.body;
     console.log(data);
 
