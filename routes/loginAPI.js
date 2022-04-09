@@ -140,8 +140,8 @@ router.post("/api/geteditUser", (req, res) => {
     });
 });
 
-router.post("/updateUser/:phone", (req, res) => {
-    const { phone } = req.params;
+router.post("/api/updateUser", (req, res) => {
+    const { phone } = req.body;
     const data = req.body;
 
     const newUser = {
@@ -169,20 +169,18 @@ router.post("/updateUser/:phone", (req, res) => {
 
     // console.log(data);
 
-    if (data.password !== data.mk_repeat) {
-        res.render('editUser', { layout: false, data: data2, error: ["2 mật khẩu không khớp nhau"] });
-    } else if (data.role === 'admin' || data.role === 'food') {
+    if (data.role === 'admin' || data.role === 'food') {
         req.getConnection((err, connection) => {
-            if (err) throw err;
+            if (err) res.json(err);
 
             connection.query('update Users set ? where phone = ?', [newUser, phone], (err, rows) => {
-                if (err) throw err;
+                if (err) res.json(err);
 
-                res.redirect('/users');
+                res.json({...rows , updateUser : true , newUser : newUser});
             });
         });
     } else if (data.permission !== "admin" || data.permission !== "food") {
-        res.render('editUser', { layout: false, data: data2, error: ["Bạn nhập sai quyền truy cập"] });
+        res.json({error : "Bạn nhập sai quyền truy cập" , updateUser : false});
     }
 });
 
