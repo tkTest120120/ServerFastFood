@@ -16,11 +16,11 @@ router.get("/api/loaiMon", (req, res) => {
 
 });
 
-router.get("/addLoaiMon", (req, res) => {
-    res.render("addLoaiMon");
-});
+// router.get("/addLoaiMon", (req, res) => {
+//     res.render("addLoaiMon");
+// });
 
-router.post("/loaiMon", (req, res) => {
+router.post("/api/loaiMon", (req, res) => {
     const data = req.body;
     console.log(data);
 
@@ -35,7 +35,7 @@ router.post("/loaiMon", (req, res) => {
         connection.query("INSERT INTO `LoaiMon` set ?", loaiMon, (err2, products) => {
             if (err2) res.json(err2);
 
-            res.send({ status: "xong", loaiMon: loaiMon });
+            res.json({ status: "xong", loaiMon: loaiMon , addLoaiMon : true});
         });
     });
 });
