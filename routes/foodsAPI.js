@@ -40,7 +40,7 @@ router.post("/api/addLoaiMon", (req, res) => {
     });
 });
 
-router.get("/api/deleteLoaiMon", (req, res) => {
+router.post("/api/deleteLoaiMon", (req, res) => {
     const { idLoaiMon } = req.body;
 
     console.log(idLoaiMon);
