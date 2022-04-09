@@ -135,7 +135,7 @@ router.post("/api/geteditUser", (req, res) => {
             if (err) throw err;
 
             console.log(user[0]);
-            res.json({data: user[0]});
+            res.json(user[0]);
         });
     });
 });
