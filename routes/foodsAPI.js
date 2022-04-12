@@ -116,7 +116,7 @@ router.get("/monAn", (req, res) => {
                 datas[i].tenLoai = tenLoai;
             }
 
-            res.render("./MonAn/listMonAn", { data: datas });
+            res.json(datas);
         });
     });
 });
