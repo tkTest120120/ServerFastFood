@@ -95,7 +95,7 @@ router.post("/api/updateLoaiMon", (req, res) => {
     });
 });
 
-router.get("/monAn", (req, res) => {
+router.get("/api/monAn", (req, res) => {
     let listLoaiMon = [];
     req.getConnection((err, connection) => {
         if (err) res.json(err);
@@ -121,19 +121,19 @@ router.get("/monAn", (req, res) => {
     });
 });
 
-router.get("/addMonAn", (req, res) => {
-    req.getConnection((err, connection) => {
-        if (err) res.json(err);
+// router.get("/addMonAn", (req, res) => {
+//     req.getConnection((err, connection) => {
+//         if (err) res.json(err);
 
-        connection.query("select * from LoaiMon", (err, datas) => {
-            if (err) res.json(err);
+//         connection.query("select * from LoaiMon", (err, datas) => {
+//             if (err) res.json(err);
 
-            // console.log( users);
+//             // console.log( users);
 
-            res.render("./MonAn/addMonAn", { data: datas });
-        });
-    });
-});
+//             res.render("./MonAn/addMonAn", { data: datas });
+//         });
+//     });
+// });
 
 router.post("/addMonAn", (req, res) => {
     const data = req.body;
