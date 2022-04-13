@@ -49,7 +49,7 @@ app.use(myConnection(mysql, {
     password: '47tKHpVqR3',
     port: 3306,
     database: 'JnWiETIzRg'
-}, 'single'));
+}, 'request'));
 
 // express
 app.use(express.urlencoded({ extended: false }));

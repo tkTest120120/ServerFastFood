@@ -10,7 +10,7 @@ router.get("/api/loaiMon", (req, res) => {
 
             // console.log( users);
 
-            res.json( datas);
+            res.json(datas);
         });
     });
 
@@ -45,14 +45,33 @@ router.post("/api/deleteLoaiMon", (req, res) => {
 
     console.log(idLoaiMon);
 
-    req.getConnection((err, connection) => {
+    let listMonAn = [];
+
+    req.getConnection(async(err, connection) => {
         if (err) throw err;
 
-        connection.query('delete from LoaiMon where idLoaiMon = ?', [idLoaiMon], (err2, rows) => {
-            if (err2) res.json(err2);
+        await connection.query("select * from MonAn", (err, datas) => {
+            if (err) res.json(err);
 
-            res.json({ deleteLoaiMon: true, idLoaiMon: idLoaiMon });
+            listMonAn = datas.filter(item => {
+                return Number(item.idLoaiMon) === Number(idLoaiMon);
+            });
+
+            console.log(listMonAn.length);
+
+            if(listMonAn.length === 0){
+                // res.send("ok");
+                connection.query('delete from LoaiMon where idLoaiMon = ?', [idLoaiMon], (err2, rows) => {
+                    if (err2) res.json(err2);        
+        
+                    res.json({ deleteLoaiMon: true, idLoaiMon: idLoaiMon });
+                });
+            }
+            res.json({delete : false , sqlMessage : "Không thể xóa"});
+
+
         });
+
     });
 });
 
