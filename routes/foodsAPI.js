@@ -1,17 +1,16 @@
 const router = require('express').Router();
 const hdf = require('../service/handleFunction');
+const connection = require('../service/database');
+
 
 router.get("/api/loaiMon", (req, res) => {
-    req.getConnection((err, connection) => {
+    connection.query("select * from LoaiMon", (err, datas) => {
         if (err) res.json(err);
 
-        connection.query("select * from LoaiMon", (err, datas) => {
-            if (err) res.json(err);
+        // console.log( users);
 
-            // console.log( users);
-
-            res.json( datas);
-        });
+        res.json( datas);
+        // connection.end(err => console.log("close mysql"));
     });
 
 });
