@@ -1,16 +1,20 @@
 const router = require('express').Router();
 const hdf = require('../service/handleFunction');
-const connection = require('../service/database');
+const connection = require('express-myconnection');
+
 
 
 router.get("/api/loaiMon", (req, res) => {
-    connection.query("select * from LoaiMon", (err, datas) => {
+    req.getConnection((err, connection) => {
         if (err) res.json(err);
 
-        // console.log( users);
+        connection.query("select * from LoaiMon", (err, datas) => {
+            if (err) res.json(err);
 
-        res.json( datas);
-        // connection.end(err => console.log("close mysql"));
+            // console.log( users);
+
+            res.json( datas);
+        });
     });
 
 });
@@ -34,7 +38,7 @@ router.post("/api/addLoaiMon", (req, res) => {
         connection.query("INSERT INTO `LoaiMon` set ?", loaiMon, (err2, products) => {
             if (err2) res.json(err2);
 
-            res.json({ status: "xong", loaiMon: loaiMon , addLoaiMon : true});
+            res.json({ status: "xong", loaiMon: loaiMon, addLoaiMon: true });
         });
     });
 });
@@ -50,7 +54,7 @@ router.post("/api/deleteLoaiMon", (req, res) => {
         connection.query('delete from LoaiMon where idLoaiMon = ?', [idLoaiMon], (err2, rows) => {
             if (err2) res.json(err2);
 
-            res.json({deleteLoaiMon : true , idLoaiMon : idLoaiMon});
+            res.json({ deleteLoaiMon: true, idLoaiMon: idLoaiMon });
         });
     });
 });
@@ -89,7 +93,7 @@ router.post("/api/updateLoaiMon", (req, res) => {
         connection.query('update LoaiMon set ? where idLoaiMon = ?', [newLoaiMon, idLoaiMon], (err, rows) => {
             if (err) res.json(err);
 
-            res.json({ status: "xong", newLoaiMon: newLoaiMon, error: 0 , updateLoaiMon : true});
+            res.json({ status: "xong", newLoaiMon: newLoaiMon, error: 0, updateLoaiMon: true });
         });
     });
 });
@@ -111,7 +115,7 @@ router.get("/api/monAn", (req, res) => {
 
 
             for (let i = 0; i < datas.length; i++) {
-                const tenLoai = hdf.getTenLoaiMon(listLoaiMon , datas[i].idLoaiMon);
+                const tenLoai = hdf.getTenLoaiMon(listLoaiMon, datas[i].idLoaiMon);
                 datas[i].tenLoai = tenLoai;
             }
 
@@ -153,7 +157,7 @@ router.post("/addMonAn", (req, res) => {
         connection.query("INSERT INTO `MonAn` set ?", loaiMon, (err2, MonAns) => {
             if (err2) res.json(err2);
 
-            res.send({...MonAns ,status: "xong" , addMonAn : true});
+            res.send({ ...MonAns, status: "xong", addMonAn: true });
         });
     });
 });
@@ -191,11 +195,11 @@ router.get("/editMonAn/:idMonAn", (req, res) => {
             if (err) res.json(err);
 
             for (let i = 0; i < data.length; i++) {
-                const tenLoai = hdf.getTenLoaiMon(listLoaiMon , data[i].idLoaiMon);
+                const tenLoai = hdf.getTenLoaiMon(listLoaiMon, data[i].idLoaiMon);
                 data[i].tenLoai = tenLoai;
             }
 
-            res.render('./MonAn/editMonAn', { data: listLoaiMon , listMonAn : data[0] });
+            res.render('./MonAn/editMonAn', { data: listLoaiMon, listMonAn: data[0] });
         });
     });
 });
@@ -208,9 +212,9 @@ router.post("/editMonAn/:idMonAn", (req, res) => {
         tenMonAn: data.tenMonAn,
         idLoaiMon: data.idLoaiMon,
         gia: data.gia,
-        soLuong : data.soLuong,
-        moTa : data.moTa,
-        img1 : data.img1
+        soLuong: data.soLuong,
+        moTa: data.moTa,
+        img1: data.img1
     };
 
     console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -222,7 +226,7 @@ router.post("/editMonAn/:idMonAn", (req, res) => {
         connection.query('update MonAn set ? where idMonAn = ?', [newMonAn, idMonAn], (err, rows) => {
             if (err) res.json(err);
 
-            res.send({ update : true, newMonAn: newMonAn, error: 0 });
+            res.send({ update: true, newMonAn: newMonAn, error: 0 });
         });
     });
 });

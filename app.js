@@ -68,6 +68,11 @@ app.use('/', foodsRoutes_API);
 // static file
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Something broke!');
+  })
+
 // khởi động server
 // const ipAdress = '192.168.43.190';
 const ipAdress = '192.168.1.13';
