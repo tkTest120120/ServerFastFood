@@ -1,8 +1,5 @@
 const router = require('express').Router();
 const hdf = require('../service/handleFunction');
-const connection = require('express-myconnection');
-
-
 
 router.get("/api/loaiMon", (req, res) => {
     req.getConnection((err, connection) => {
@@ -49,7 +46,7 @@ router.post("/api/deleteLoaiMon", (req, res) => {
     console.log(idLoaiMon);
 
     req.getConnection((err, connection) => {
-        if (err) res.json(err);
+        if (err) throw err;
 
         connection.query('delete from LoaiMon where idLoaiMon = ?', [idLoaiMon], (err2, rows) => {
             if (err2) res.json(err2);
