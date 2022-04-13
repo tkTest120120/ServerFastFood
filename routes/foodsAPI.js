@@ -178,15 +178,15 @@ router.post("/addMonAn", (req, res) => {
     });
 });
 
-router.get("/deleteMonAn/:idMonAn", (req, res) => {
-    const { idMonAn } = req.params;
+router.post("/api/deleteMonAn", (req, res) => {
+    const { idMonAn } = req.body;
     req.getConnection((err, connection) => {
         if (err) res.json(err);
 
         connection.query('delete from MonAn where idMonAn = ?', [idMonAn], (err2, rows) => {
             if (err2) res.json(err2);
 
-            res.redirect('/monAn');
+            res.json({deleteMonAn : true , idMonAn : idMonAn});
         });
     });
 });
